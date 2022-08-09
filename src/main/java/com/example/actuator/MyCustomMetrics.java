@@ -23,9 +23,15 @@ public class MyCustomMetrics {
 
      public void updateMetrics(long value) {
          incrementCounter(value);
+         updateSummary(value);
      }
 
-     private void incrementCounter(long value) {
+     private void updateSummary(long value) {
+         meterRegistry.summary(MyCustomMetrics.class.getSimpleName())
+             .record(100 + value);
+     }
+
+    private void incrementCounter(long value) {
          meterRegistry.counter(
              // this is the metrics/<endpoint> value
              MyCustomMetrics.class.getSimpleName(),
