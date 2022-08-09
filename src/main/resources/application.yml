@@ -1,6 +1,7 @@
 management:
   # expose all actuator endpoints
   endpoints.web.exposure.include: '*'
+  endpoint.health.show-details: "ALWAYS"
   info:
     java.enabled: true
     # display all info.* properties in the info endpoint
