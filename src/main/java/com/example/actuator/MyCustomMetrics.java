@@ -18,10 +18,14 @@ public class MyCustomMetrics {
      @PostConstruct
      public void init() {
          // increment counter every second
-         everySecond.subscribe(this::incrementCounter);
+         everySecond.subscribe(this::updateMetrics);
      }
 
-     public void incrementCounter(long value) {
+     public void updateMetrics(long value) {
+         incrementCounter(value);
+     }
+
+     private void incrementCounter(long value) {
          meterRegistry.counter(
              // this is the metrics/<endpoint> value
              MyCustomMetrics.class.getSimpleName(),
