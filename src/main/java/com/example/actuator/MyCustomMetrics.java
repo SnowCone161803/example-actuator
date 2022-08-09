@@ -12,31 +12,31 @@ import java.time.Duration;
 @RequiredArgsConstructor
 public class MyCustomMetrics {
 
-     private final MeterRegistry meterRegistry;
-     private final Flux<Long> everySecond = Flux.interval(Duration.ofSeconds(1));
+    private final MeterRegistry meterRegistry;
+    private final Flux<Long> everySecond = Flux.interval(Duration.ofSeconds(1));
 
-     @PostConstruct
-     public void init() {
-         // increment counter every second
-         everySecond.subscribe(this::updateMetrics);
-     }
+    @PostConstruct
+    public void init() {
+        // increment counter every second
+        everySecond.subscribe(this::updateMetrics);
+    }
 
-     public void updateMetrics(long value) {
-         incrementCounter(value);
-         updateSummary(value);
-     }
+    public void updateMetrics(long value) {
+        incrementCounter(value);
+        updateSummary(value);
+    }
 
-     private void updateSummary(long value) {
-         meterRegistry.summary(MyCustomMetrics.class.getSimpleName())
-             .record(100 + value);
-     }
+    private void updateSummary(long value) {
+        meterRegistry.summary(MyCustomMetrics.class.getSimpleName())
+            .record(100 + value);
+    }
 
     private void incrementCounter(long value) {
-         meterRegistry.counter(
-             // this is the metrics/<endpoint> value
-             MyCustomMetrics.class.getSimpleName(),
-             // tags are optional
-             "typeOfTag:" + (value % 4), "tagValue:" + (value % 8)
-         ).increment();
-     }
+        meterRegistry.counter(
+            // this is the metrics/<endpoint> value
+            MyCustomMetrics.class.getSimpleName(),
+            // tags are optional
+            "typeOfTag:" + (value % 4), "tagValue:" + (value % 8)
+        ).increment();
+    }
 }
