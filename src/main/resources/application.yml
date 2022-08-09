@@ -1,1 +1,10 @@
-management.endpoints.web.exposure.include: '*'
+management:
+  # expose all actuator endpoints
+  endpoints.web.exposure.include: '*'
+  info:
+    java.enabled: true
+    # display all info.* properties in the info endpoint
+    env.enabled: true
+
+# displaying in /actuator/info because management.info.env.enabled=true
+info.magical.message: "my magical message!"
