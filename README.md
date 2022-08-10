@@ -7,3 +7,4 @@
 - look at `/src/java/com/example` to see:
   - custom `/actuator/metrics`
   - custom `/actuator/info`
+  - custom `/actuator/health`
